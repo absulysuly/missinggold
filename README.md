@@ -1,102 +1,114 @@
-# Eventra - Event Management Platform 🎪
+# Missinggold - Event Management Platform
 
-A modern, full-stack SaaS application for creating, managing, and sharing events. Built with Next.js 15, TypeScript, Prisma, and Tailwind CSS.
+A comprehensive event management and venue platform for Iraq & Kurdistan, featuring hotels, restaurants, activities, and entertainment venues.
 
-## 🌟 Features
+## Features
 
-- **User Authentication**: Secure registration and login with NextAuth.js
-- **Event Management**: Full CRUD operations for events
-- **Public Event Pages**: Each event gets a beautiful, shareable URL
-- **Responsive Design**: Works perfectly on desktop and mobile
-- **Modern UI**: Built with Tailwind CSS and modern design principles
+- 🎯 **Multi-language Support**: English, Arabic, and Kurdish
+- 🏨 **Venue Management**: Hotels, restaurants, cafes, and tourism activities
+- 📱 **Progressive Web App**: Offline-capable mobile experience
+- 🔐 **Authentication**: Secure user authentication with NextAuth.js
+- 💎 **Modern Stack**: Next.js 15, React 19, TypeScript, Prisma
+- 🎨 **Beautiful UI**: Tailwind CSS with responsive design
+- 🌍 **RTL Support**: Full right-to-left language support
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
 - Node.js 18+ 
-- npm or yarn
+- PostgreSQL database
+- Prisma CLI
 
 ### Installation
 
-1. Install dependencies:
 ```bash
-npm install
-```
+# Clone the repository
+git clone https://github.com/absulysuly/missinggold.git
+cd missinggold
 
-2. Set up environment variables:
-```bash
-cp .env.example .env
-```
+# Install dependencies
+npm ci
 
-3. Initialize the database:
-```bash
-npx prisma generate
-npx prisma migrate dev --name init
-```
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your database URL and other secrets
 
-4. Start the development server:
-```bash
+# Set up the database
+npm run db:deploy
+npm run db:seed
+
+# Start development server
 npm run dev
 ```
 
-Visit `http://localhost:3000` to see the application.
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
-## 🛠️ Tech Stack
+## Environment Variables
 
-- **Frontend**: Next.js 15 (App Router), React 19, TypeScript
-- **Backend**: Next.js API Routes, Prisma ORM
-- **Database**: SQLite (development), easily upgradeable to PostgreSQL
-- **Authentication**: NextAuth.js with credentials provider
-- **Styling**: Tailwind CSS v4
-- **Build Tool**: Turbopack for ultra-fast builds
+Create a `.env.local` file in the root directory with the following variables:
 
-## 📱 Usage
+```bash
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/missinggold"
 
-1. **Sign Up**: Create an account on the registration page
-2. **Create Events**: Use the dashboard to create new events with details
-3. **Manage Events**: Edit or delete existing events
-4. **Share Events**: Each event gets a public URL you can share with anyone
-
-## 🌐 Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub/GitLab
-2. Import your project on Vercel
-3. Add environment variables:
-   - `DATABASE_URL`: Your database connection string
-   - `NEXTAUTH_SECRET`: A random secret string
-   - `NEXTAUTH_URL`: Your production domain
-
-## 🔒 Environment Variables
-
-```env
-DATABASE_URL="file:./dev.db"
+# Authentication  
+NEXTAUTH_SECRET="your-nextauth-secret-here"
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-here"
+
+# Rate Limiting (Upstash Redis)
+UPSTASH_REDIS_REST_URL="your-upstash-url"
+UPSTASH_REDIS_REST_TOKEN="your-upstash-token"
+
+# Email (Resend)
+RESEND_API_KEY="your-resend-api-key"
+
+# Analytics (Optional)
+SENTRY_DSN="your-sentry-dsn"
 ```
 
-## 🧪 Health & i18n Checks
+## Scripts
 
-- Health: visit http://localhost:3000/api/health to verify environment and database connectivity
-- i18n: run `npm run i18n:check` to ensure all translation keys exist across locales (en, ar, ku)
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript checking
+- `npm run db:migrate` - Run database migrations
+- `npm run db:seed` - Seed database with initial data
 
-## 🗃️ Database Scripts
+## Deployment
 
-- Generate Prisma client: `npm run db:generate`
-- Local dev migration (iterative): `npm run db:migrate`
-- Production-style deploy: `npm run db:deploy`
-- Seed data: `npm run db:seed`
-- One-command setup (deploy + seed): `npm run db:setup`
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed production deployment instructions.
 
-## 📈 Production Ready
+## Project Structure
 
-- ✅ TypeScript for type safety
-- ✅ ESLint for code quality
-- ✅ Production build optimized
-- ✅ Database migrations
-- ✅ Error handling
-- ✅ Responsive design
+```
+├── src/
+│   ├── app/              # Next.js app router pages
+│   ├── components/       # Reusable React components
+│   ├── lib/              # Utility libraries
+│   └── types/            # TypeScript type definitions
+├── prisma/              # Database schema and migrations
+├── public/              # Static assets
+├── messages/            # i18n translation files
+└── scripts/             # Build and maintenance scripts
+```
 
-**Eventra** - Making event management simple and beautiful. 🎉
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Security
+
+If you discover any security issues, please email [security@example.com](mailto:security@example.com) instead of using the issue tracker.
+
+**Note**: After deployment, rotate all secrets that were removed during repository extraction.
