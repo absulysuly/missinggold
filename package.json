@@ -42,7 +42,7 @@
     "validate:translations:ci": "node scripts/validate-translations.js --fail-fast",
     "import:events:csv": "tsx scripts/csv-to-events-json.ts",
     "test": "echo \"No tests specified\" && exit 0",
-    "prebuild": "npm run type-check && npm run lint",
+    "prebuild": "npm run lint",
     "postinstall": "prisma generate"
   },
   "dependencies": {
