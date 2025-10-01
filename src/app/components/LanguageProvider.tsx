@@ -28,11 +28,9 @@ export function LanguageProvider({ children, initialLanguage }: { children: Reac
   const router = useRouter();
   const pathname = usePathname();
   
-  // Initialize with URL locale if available, otherwise fall back to detection/default
+  // Initialize with URL locale if available, otherwise fall back to default
+  // IMPORTANT: Always use the same initial value on server and client to prevent hydration mismatch
   const getInitialLanguage = (): Language => {
-    // On server render, prefer initialLanguage from layout to prevent hydration mismatch
-    if (typeof window === 'undefined') return initialLanguage || DEFAULT_LOCALE;
-    
     // Extract locale from pathname (e.g., /ar/events -> ar)
     const pathSegments = pathname.split('/').filter(Boolean);
     const urlLocale = pathSegments[0];
@@ -41,18 +39,37 @@ export function LanguageProvider({ children, initialLanguage }: { children: Reac
       return urlLocale as Language;
     }
     
+    // Always return default locale for initial render (both server and client)
+    return initialLanguage || DEFAULT_LOCALE;
+  };
+  
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  const [isHydrated, setIsHydrated] = useState(false);
+  
+  // After hydration, detect user preference from localStorage or browser
+  useEffect(() => {
+    setIsHydrated(true);
+    
+    // Don't override if URL already has a locale
+    const pathSegments = pathname.split('/').filter(Boolean);
+    const urlLocale = pathSegments[0];
+    if (urlLocale && isValidLocale(urlLocale)) {
+      return; // URL locale takes precedence
+    }
+    
     // Check localStorage
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage && isValidLocale(savedLanguage)) {
-      return savedLanguage as Language;
+      setLanguageState(savedLanguage as Language);
+      return;
     }
     
     // Detect from browser
     const detected = detectLocale(navigator.language);
-    return (isValidLocale(detected) ? (detected as Language) : DEFAULT_LOCALE) as Language;
-  };
-  
-  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+    if (detected && detected !== DEFAULT_LOCALE && isValidLocale(detected)) {
+      setLanguageState(detected as Language);
+    }
+  }, []); // Run once after hydration
   const localeConfig = getLocaleConfig(language);
   const isRTL = checkIsRTL(language);
 

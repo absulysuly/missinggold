@@ -1,4 +1,5 @@
-import type { Locale } from "@prisma/client";
+// Locale type definition
+type Locale = "en" | "ar" | "ku";
 
 // Provider selection via env
 const PROVIDER = process.env.TRANSLATE_PROVIDER || "none"; // "google" | "none"

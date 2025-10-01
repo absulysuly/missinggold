@@ -84,7 +84,7 @@ export default function Navigation() {
               <div className="relative group hidden sm:block" data-testid="language-switcher">
                 <button className="flex items-center gap-2 px-3 py-2 font-medium transition-colors rounded-full" style={{ color: 'var(--text-primary)' }}>
                   <span className="text-lg">🌐</span>
-                  <span className="text-sm">
+                  <span className="text-sm" suppressHydrationWarning>
                     {language === 'en' ? 'English' : language === 'ar' ? 'العربية' : 'کوردی'}
                   </span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

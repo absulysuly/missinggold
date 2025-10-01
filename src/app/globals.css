@@ -1215,3 +1215,51 @@ body {
   max-width: fit-content;
   flex-shrink: 0;
 }
+
+/* ==================== Responsive Grid System ==================== */
+/* Prevents hydration mismatches by using CSS media queries instead of JS */
+
+.grid-layout {
+  display: grid;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Default: Desktop layout */
+.grid-layout {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .grid-layout.categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-layout.events {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid-layout.categories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .grid-layout.events {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop layout */
+@media (min-width: 1024px) {
+  .grid-layout.categories {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .grid-layout.events {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}

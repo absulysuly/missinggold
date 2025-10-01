@@ -1,8 +1,22 @@
-"use client";
+﻿"use client";
 
-export const dynamic = 'force-dynamic';
-import NeonHomepage from "./components/NeonHomepage";
+import MultiVenueHomepage from "./components/MultiVenueHomepage";
+import Navigation from "./components/Navigation";
+
+/**
+ * Home Page - Multi-Venue Platform
+ * 
+ * Features:
+ * - Events, Hotels, Restaurants, Activities, Services
+ * - Tabbed navigation
+ * - Venue listings
+ */
 
 export default function Home() {
-  return <NeonHomepage />;
+  return (
+    <>
+      <Navigation />
+      <MultiVenueHomepage />
+    </>
+  );
 }

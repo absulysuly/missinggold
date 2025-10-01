@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../lib/auth";
-import { PrismaClient, Locale } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
+
+type Locale = "en" | "ar" | "ku";
 
 function isValidLocale(l: string): l is Locale {
   return ["en","ar","ku"].includes(l);

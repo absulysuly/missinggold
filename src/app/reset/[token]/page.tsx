@@ -6,8 +6,8 @@ export async function generateStaticParams() {
   return [] as Array<{ token: string }>;
 }
 
-export default async function ResetPage({ params }: { params: { token: string } }) {
-  const { token } = params;
+export default async function ResetPage({ params }: { params: Promise<{ token: string }> }) {
+  const { token } = await params;
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 py-12 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-100 p-8">

@@ -423,7 +423,7 @@ export default function EventsPage({ params }: EventsPageProps) {
             {/* Results Count */}
             <div className="text-center">
               <p className="text-white/80 text-lg">
-                {filteredEvents.length === 0 ? t('events.noEventsFound') : t('events.foundEvents', { count: filteredEvents.length })}
+                {filteredEvents.length === 0 ? t('events.noEventsFound') : `${filteredEvents.length} ${t('events.eventsFound')}`}
               </p>
             </div>
           </div>

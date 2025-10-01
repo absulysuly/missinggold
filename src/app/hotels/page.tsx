@@ -177,7 +177,7 @@ export default function HotelsPage() {
             marginBottom: '16px',
             textShadow: '0 0 10px var(--hotels-color)'
           }}>
-            Can't find what you're looking for?
+            Can&apos;t find what you&apos;re looking for?
           </h2>
           <p style={{
             color: 'var(--text-secondary)',

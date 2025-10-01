@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Locale } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -30,19 +30,19 @@ async function main() {
       translations: {
         create: [
           {
-            locale: 'en',
+            locale: 'en' as Locale,
             title: 'AI Innovation Summit Baghdad',
             description: 'Join us for a comprehensive exploration of artificial intelligence and machine learning technologies that are shaping the future of Iraq.',
             location: 'Baghdad Tech Center, Baghdad'
           },
           {
-            locale: 'ar',
+            locale: 'ar' as Locale,
             title: 'قمة الابتكار في الذكاء الاصطناعي بغداد',
             description: 'انضم إلينا لاستكشاف شامل لتقنيات الذكاء الاصطناعي والتعلم الآلي التي تشكل مستقبل العراق.',
             location: 'مركز بغداد التقني، بغداد'
           },
           {
-            locale: 'ku',
+            locale: 'ku' as Locale,
             title: 'کۆنگرەی داهێنانی زیرەکی دەستکرد لە بەغداد',
             description: 'لەگەڵمان بن بۆ گەڕانێکی تەواو بە تەکنەلۆژیای زیرەکی دەستکرد کە داهاتووی عێراق شێوە دەدات.',
             location: 'ناوەندی تەکنەلۆژیای بەغداد، بەغداد'
@@ -61,19 +61,19 @@ async function main() {
       translations: {
         create: [
           {
-            locale: 'en',
+            locale: 'en' as Locale,
             title: 'Kurdish Music Festival',
             description: 'Experience the rich musical heritage of Kurdistan with traditional and contemporary Kurdish artists performing live.',
             location: 'Central Park, Erbil'
           },
           {
-            locale: 'ar',
+            locale: 'ar' as Locale,
             title: 'مهرجان الموسيقى الكردية',
             description: 'اختبر التراث الموسيقي الغني لكردستان مع فنانين كرد تقليديين ومعاصرين يؤدون مباشرة.',
             location: 'الحديقة المركزية، أربيل'
           },
           {
-            locale: 'ku',
+            locale: 'ku' as Locale,
             title: 'فێستیڤاڵی مۆسیقای کوردی',
             description: 'میراتی مۆسیقی دەوڵەمەندی کوردستان تاقی بکەرەوە لەگەڵ هونەرمەندانی کوردی نەریتی و سەردەمی کە زیندوو نمایش دەکەن.',
             location: 'پارکی ناوەندی، هەولێر'
@@ -92,19 +92,19 @@ async function main() {
       translations: {
         create: [
           {
-            locale: 'en',
+            locale: 'en' as Locale,
             title: 'Business Leadership Workshop',
             description: 'Learn essential leadership skills and networking strategies for business growth in the Middle East market.',
             location: 'Business District, Basra'
           },
           {
-            locale: 'ar',
+            locale: 'ar' as Locale,
             title: 'ورشة عمل القيادة التجارية',
             description: 'تعلم مهارات القيادة الأساسية واستراتيجيات التشبيك لنمو الأعمال في السوق الشرق أوسطية.',
             location: 'المنطقة التجارية، البصرة'
           },
           {
-            locale: 'ku',
+            locale: 'ku' as Locale,
             title: 'وۆرکشۆپی ڕابەرایەتی بازرگانی',
             description: 'کارامەییەکانی ڕابەرایەتی بنەڕەتی و ستراتیژی تۆڕسازی بۆ گەشەی بازرگانی لە بازاڕی ڕۆژهەڵاتی ناوەڕاست فێر ببە.',
             location: 'ناحیەی بازرگانی، بەسرە'

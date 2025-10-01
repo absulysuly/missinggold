@@ -172,6 +172,17 @@ export default function MultiVenueHomepage() {
 }
 
 function VenueCard({ venue }: { venue: Venue }) {
+  const getVenueTypeIcon = (type: string) => {
+    switch (type) {
+      case 'EVENT': return '🎉';
+      case 'HOTEL': return '🏨';
+      case 'RESTAURANT': return '🍽️';
+      case 'ACTIVITY': return '🎯';
+      case 'SERVICE': return '🛎️';
+      default: return '📍';
+    }
+  };
+
   const getEventDate = (eventDate?: string) => {
     if (!eventDate) return null;
     return new Date(eventDate).toLocaleDateString('en-US', {
@@ -179,6 +190,11 @@ function VenueCard({ venue }: { venue: Venue }) {
       day: 'numeric',
       year: 'numeric'
     });
+  };
+
+  const formatPrice = (priceRange?: string) => {
+    if (!priceRange) return null;
+    return priceRange;
   };
 
   return (

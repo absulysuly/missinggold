@@ -122,7 +122,7 @@ export default function PublicEventPage({ params }: EventPageProps) {
             </div>
             <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <span className="text-green-400">👤</span>
-              <span>{t('events.byOrganizer', { name: event.user?.name || event.user?.email || t('common.anonymous') })}</span>
+              <span>{t('events.organizer')}: {event.user?.name || event.user?.email || t('common.anonymous')}</span>
             </div>
           </div>
         </div>

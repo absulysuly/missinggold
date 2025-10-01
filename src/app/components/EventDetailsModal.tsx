@@ -240,7 +240,7 @@ export default function EventDetailsModal({ event, isOpen, onClose }: EventDetai
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">
-                    {t('events.byOrganizer', { name: event.user.name || 'Organizer' })}
+                    {t('events.organizer')}: {event.user.name || 'Organizer'}
                   </p>
                   <p className="text-sm text-gray-600">{event.user.email}</p>
                 </div>

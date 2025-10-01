@@ -368,7 +368,7 @@ export default function TourismPage() {
             marginBottom: '24px'
           }}>
             Iraq and Kurdistan offer incredible diversity - from ancient Mesopotamian sites to Kurdish mountain 
-            adventures. Whether you're interested in history, culture, nature, or adventure, we'll help you 
+            adventures. Whether you&apos;re interested in history, culture, nature, or adventure, we&apos;ll help you 
             discover the hidden gems of this remarkable region.
           </p>
           <div style={{

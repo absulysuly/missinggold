@@ -25,7 +25,7 @@ export default function Dashboard({ user }: { user: User }) {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {t('dashboard.welcomeBack', { name: user.name || user.email })}
+                {t('dashboard.welcomeBack')}, {user.name || user.email}!
               </h1>
               <p className="text-gray-600">
                 {t('dashboard.subtitle')}
