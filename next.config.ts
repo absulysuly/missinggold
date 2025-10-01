@@ -84,13 +84,12 @@ const nextConfig: NextConfig = {
       },
     ]
   },
-  // Disable TypeScript checking during build to prevent blocking
+  // Enable strict TypeScript and ESLint checking for production builds
   typescript: {
-    ignoreBuildErrors: true, // Temporary - remove after fixes
+    ignoreBuildErrors: false,
   },
-  // Disable ESLint during build
   eslint: {
-    ignoreDuringBuilds: true, // Temporary - remove after fixes
+    ignoreDuringBuilds: false,
   }
 };
 
