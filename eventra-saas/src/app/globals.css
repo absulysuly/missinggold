@@ -1,0 +1,871 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* Ensure Arabic-script fonts are used for Arabic & Kurdish for proper shaping */
+[dir="rtl"] body,
+html[lang="ar"] body,
+html[lang="ku"] body {
+  font-family: var(--font-arabic-rtl), var(--font-geist-sans), sans-serif;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+/* Inputs/selects inherit font to avoid fallback that breaks shaping */
+input, select, textarea, button { font-family: inherit; }
+[dir="rtl"] select, [dir="rtl"] option { direction: rtl; text-align: right; }
+
+/* Comprehensive RTL Layout Fixes */
+[dir="rtl"] .text-left { text-align: right !important; }
+[dir="rtl"] .text-right { text-align: left !important; }
+[dir="rtl"] .text-center { text-align: center !important; }
+
+/* Fix Flexbox and Grid layouts for RTL */
+[dir="rtl"] .flex-row { flex-direction: row-reverse !important; }
+[dir="rtl"] .flex-row-reverse { flex-direction: row !important; }
+
+/* Fix positioning and margins for RTL */
+[dir="rtl"] .ml-1 { margin-right: 0.25rem !important; margin-left: 0 !important; }
+[dir="rtl"] .ml-2 { margin-right: 0.5rem !important; margin-left: 0 !important; }
+[dir="rtl"] .ml-3 { margin-right: 0.75rem !important; margin-left: 0 !important; }
+[dir="rtl"] .ml-4 { margin-right: 1rem !important; margin-left: 0 !important; }
+[dir="rtl"] .mr-1 { margin-left: 0.25rem !important; margin-right: 0 !important; }
+[dir="rtl"] .mr-2 { margin-left: 0.5rem !important; margin-right: 0 !important; }
+[dir="rtl"] .mr-3 { margin-left: 0.75rem !important; margin-right: 0 !important; }
+[dir="rtl"] .mr-4 { margin-left: 1rem !important; margin-right: 0 !important; }
+
+/* Fix padding for RTL */
+[dir="rtl"] .pl-1 { padding-right: 0.25rem !important; padding-left: 0 !important; }
+[dir="rtl"] .pl-2 { padding-right: 0.5rem !important; padding-left: 0 !important; }
+[dir="rtl"] .pl-3 { padding-right: 0.75rem !important; padding-left: 0 !important; }
+[dir="rtl"] .pl-4 { padding-right: 1rem !important; padding-left: 0 !important; }
+[dir="rtl"] .pr-1 { padding-left: 0.25rem !important; padding-right: 0 !important; }
+[dir="rtl"] .pr-2 { padding-left: 0.5rem !important; padding-right: 0 !important; }
+[dir="rtl"] .pr-3 { padding-left: 0.75rem !important; padding-right: 0 !important; }
+[dir="rtl"] .pr-4 { padding-left: 1rem !important; padding-right: 0 !important; }
+
+/* Fix float and positioning for RTL */
+[dir="rtl"] .float-left { float: right !important; }
+[dir="rtl"] .float-right { float: left !important; }
+[dir="rtl"] .left-0 { right: 0 !important; left: auto !important; }
+[dir="rtl"] .right-0 { left: 0 !important; right: auto !important; }
+
+/* Fix border radius for RTL */
+[dir="rtl"] .rounded-l { border-top-right-radius: 0.25rem !important; border-bottom-right-radius: 0.25rem !important; border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
+[dir="rtl"] .rounded-r { border-top-left-radius: 0.25rem !important; border-bottom-left-radius: 0.25rem !important; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; }
+
+/* Fix event card layout specifically */
+[dir="rtl"] .event-card {
+  text-align: right !important;
+}
+
+[dir="rtl"] .event-card .event-title {
+  text-align: right !important;
+}
+
+[dir="rtl"] .event-card .event-category {
+  text-align: right !important;
+}
+
+[dir="rtl"] .event-card .event-price {
+  text-align: left !important;
+}
+
+/* Fix form inputs for RTL */
+[dir="rtl"] input[type="text"],
+[dir="rtl"] input[type="email"],
+[dir="rtl"] input[type="password"],
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  text-align: right !important;
+  direction: rtl !important;
+}
+
+/* Fix button alignment for RTL */
+[dir="rtl"] .btn-group {
+  flex-direction: row-reverse !important;
+}
+
+/* Ensure proper text rendering for Arabic/Kurdish */
+[dir="rtl"] * {
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.animate-gradient {
+  background-size: 400% 400%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.8s ease-out;
+}
+
+.animate-fadeInScale {
+  animation: fadeInScale 0.6s ease-out;
+}
+
+.animate-rainbow {
+  animation: rainbow 3s linear infinite;
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Neon Glow */
+.neon-glow {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 400% 400%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #764ba2, #667eea);
+}
+
+/* Selection Styling */
+::selection {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-scroll-right {
+  animation: scroll-right 30s linear infinite;
+}
+
+.animate-scroll-left {
+  animation: scroll-left 25s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* Pause animation on hover */
+.animate-scroll-right:hover,
+.animate-scroll-left:hover {
+  animation-play-state: paused;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+[dir="rtl"] .ml-auto {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+[dir="rtl"] .mr-auto {
+  margin-right: unset;
+  margin-left: auto;
+}
+
+[dir="rtl"] .pl-4 {
+  padding-left: unset;
+  padding-right: 1rem;
+}
+
+[dir="rtl"] .pr-4 {
+  padding-right: unset;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .border-l {
+  border-left: none;
+  border-right: 1px solid;
+}
+
+[dir="rtl"] .border-r {
+  border-right: none;
+  border-left: 1px solid;
+}
+
+
+/* RTL specific font rendering for Arabic/Kurdish */
+[dir="rtl"] {
+  font-family: var(--font-arabic-rtl), 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+
+/* Ensure proper text flow for mixed content */
+[dir="rtl"] .mixed-content {
+  unicode-bidi: embed;
+}
+
+/* Fix flexbox direction for RTL - more selective targeting */
+[dir="rtl"] .nav-items {
+  flex-direction: row-reverse;
+}
+
+/* Modern Glassmorphism Effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Modern Card Hover Effects */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-hover:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Gradient Borders */
+.gradient-border {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Floating Animation for Multiple Elements */
+.float-delay-1 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.float-delay-2 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.float-delay-3 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Blob Background */
+.blob-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.3;
+  animation: blob 7s infinite;
+}
+
+.blob-1 {
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  left: -100px;
+  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  right: -150px;
+  background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+  animation-delay: 2s;
+}
+
+.blob-3 {
+  width: 350px;
+  height: 350px;
+  bottom: -100px;
+  left: 50%;
+  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+  animation-delay: 4s;
+}
+
+/* Text Gradient Animations */
+.text-gradient-animated {
+  background: linear-gradient(
+    90deg,
+    #667eea 0%,
+    #764ba2 25%,
+    #f093fb 50%,
+    #f5576c 75%,
+    #667eea 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-x 3s linear infinite;
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px 0 rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px 0 rgba(102, 126, 234, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px 0 rgba(240, 147, 251, 0.4);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 6px 20px 0 rgba(240, 147, 251, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Modern Input Styles */
+.input-modern {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.input-modern:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  background: white;
+}
+
+/* Category Badge Styles */
+.badge-wedding {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  color: #2d3436;
+}
+
+.badge-conference {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+}
+
+.badge-concert {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+  color: white;
+}
+
+.badge-exhibition {
+  background: linear-gradient(135deg, #fd79a8 0%, #e17055 100%);
+  color: white;
+}
+
+/* Skeleton Loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Smooth Page Transitions */
+.page-enter {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.page-exit {
+  animation: fadeOut 0.3s ease-in;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Responsive Grid Pattern Background */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Pulse Effect */
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: inherit;
+  opacity: 0.5;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Tooltip Modern */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+[dir="rtl"] .button-group {
+  flex-direction: row-reverse;
+}
+
+/* Keep vertical flex as is */
+[dir="rtl"] .flex.flex-col {
+  flex-direction: column;
+}
+
+/* Don't automatically reverse all flex containers */
+[dir="rtl"] .flex:not(.flex-col):not(.keep-ltr) {
+  /* Only reverse specific containers */
+}
+
+/* Navigation specific RTL adjustments */
+[dir="rtl"] nav .flex {
+  direction: rtl;
+}
+
+/* Keep buttons in natural order - don't flip them */
+[dir="rtl"] .keep-button-order {
+  flex-direction: row;
+}
+
+[dir="rtl"] .navigation-buttons {
+  /* Don't reverse button order, keep natural flow */
+  flex-direction: row;
+}
+
+/* Ensure proper spacing is maintained */
+[dir="rtl"] .gap-3,
+[dir="rtl"] .gap-4,
+[dir="rtl"] .gap-6,
+[dir="rtl"] .gap-8 {
+  /* Keep normal gap behavior, just reverse direction where needed */
+}
+
+/* ResponsiveButton RTL Support */
+.rtl-button {
+  direction: inherit;
+}
+
+.ltr-button {
+  direction: ltr;
+}
+
+/* RTL-specific button adjustments */
+[dir="rtl"] .rtl-button {
+  direction: rtl;
+}
+
+/* Ensure text doesn't overflow in buttons */
+.rtl-button, .ltr-button {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Icon positioning in RTL */
+[dir="rtl"] .rtl-button svg {
+  transform: scaleX(-1);
+}
+
+/* Ensure proper spacing in Arabic/Kurdish text */
+[dir="rtl"] .rtl-button {
+  font-weight: 600; /* Slightly bolder for Arabic readability */
+  letter-spacing: normal; /* Avoid breaking Arabic script shaping */
+  font-feature-settings: "liga" 1, "rlig" 1, "calt" 1, "ccmp" 1;
+}
+
+/* Button text alignment fixes for RTL */
+[dir="rtl"] .rtl-button {
+  text-align: center;
+}
+
+/* Ensure buttons expand properly for longer text */
+.rtl-button, .ltr-button {
+  max-width: fit-content;
+  flex-shrink: 0;
+}
+
+/* Iraq Discovery Custom Animations */
+
+/* Ken Burns Effect for Hero Images */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 20s ease-out forwards;
+}
+
+/* Floating Animations with Delays */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(10px, -30px);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(-15px, 25px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 10s ease-in-out infinite 2s;
+}
+
+/* Slide-up animations with delays */
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out;
+}
+
+.animate-slide-up-delayed {
+  animation: slide-up 0.8s ease-out 0.2s both;
+}
+
+.animate-slide-up-delayed-2 {
+  animation: slide-up 0.8s ease-out 0.4s both;
+}
+
+.animate-slide-up-delayed-3 {
+  animation: slide-up 0.8s ease-out 0.6s both;
+}
+
+.animate-slide-up-delayed-4 {
+  animation: slide-up 0.8s ease-out 0.8s both;
+}
+
+.animate-slide-up-delayed-5 {
+  animation: slide-up 0.8s ease-out 1s both;
+}
+
+/* Gradient Text Animation */
+@keyframes gradient-text {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-text {
+  animation: gradient-text 5s ease infinite;
+}
+
+/* Modal Slide In */
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.4s ease-out;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,72 @@
+{
+  "name": "Eventra - Event Discovery & Management",
+  "short_name": "Eventra",
+  "description": "🎉 Discover, create and manage events in Iraq & Kurdistan. Multi-language support (English/Arabic/Kurdish). Your gateway to the best events!",
+  "start_url": "/4phasteprompt-eventra/",
+  "scope": "/4phasteprompt-eventra/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#4f46e5",
+  "background_color": "#ffffff",
+  "categories": ["events", "social", "lifestyle", "productivity", "business"],
+  "lang": "en-US",
+  "dir": "auto",
+  "icons": [
+    {
+      "src": "/4phasteprompt-eventra/eventra-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/4phasteprompt-eventra/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/4phasteprompt-eventra/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/4phasteprompt-eventra/icons/maskable-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/4phasteprompt-eventra/icons/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse Events",
+      "short_name": "Browse",
+      "description": "Discover amazing events near you",
+      "url": "/4phasteprompt-eventra/?view=events",
+      "icons": [{ "src": "/4phasteprompt-eventra/icons/shortcut-events.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Create Event",
+      "short_name": "Create",
+      "description": "Create and share your event",
+      "url": "/4phasteprompt-eventra/?action=create",
+      "icons": [{ "src": "/4phasteprompt-eventra/icons/shortcut-create.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "id": "/4phasteprompt-eventra/",
+  "protocol_handlers": [],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

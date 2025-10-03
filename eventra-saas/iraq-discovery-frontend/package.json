@@ -1,0 +1,34 @@
+{
+  "name": "copy-of-iraq-discovery-pwaclaude",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.14",
+    "@tanstack/react-query": "^5.90.2",
+    "autoprefixer": "^10.4.21",
+    "framer-motion": "^12.23.22",
+    "gsap": "^3.13.0",
+    "idb": "^8.0.3",
+    "lucide-react": "^0.544.0",
+    "postcss": "^8.5.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.63.0",
+    "react-router-dom": "^7.9.3",
+    "tailwindcss": "^4.1.14",
+    "zod": "^4.1.11",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

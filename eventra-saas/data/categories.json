@@ -1,0 +1,114 @@
+{
+  "categories": [
+    {
+      "icon": "🏨",
+      "label": "Hotels",
+      "subcategories": [
+        { "id": "luxury", "name": "Luxury" },
+        { "id": "budget", "name": "Budget" },
+        { "id": "family", "name": "Family-Friendly" },
+        { "id": "business", "name": "Business" },
+        { "id": "heritage", "name": "Heritage and Boutique" },
+        { "id": "resorts", "name": "Resorts and Spa" }
+      ]
+    },
+    {
+      "icon": "🍽️",
+      "label": "Restaurants",
+      "subcategories": [
+        { "id": "iraqi", "name": "Iraqi Cuisine" },
+        { "id": "grills", "name": "Grills and Kebab" },
+        { "id": "seafood", "name": "Seafood and Fish" },
+        { "id": "international", "name": "International" },
+        { "id": "fastfood", "name": "Fast Food" },
+        { "id": "familydining", "name": "Family Dining" }
+      ]
+    },
+    {
+      "icon": "☕",
+      "label": "Cafés",
+      "subcategories": [
+        { "id": "tea", "name": "Traditional Tea Houses" },
+        { "id": "shisha", "name": "Shisha Lounges" },
+        { "id": "specialty", "name": "Specialty Coffee Shops" },
+        { "id": "dessert", "name": "Dessert and Ice Cream" },
+        { "id": "outdoor", "name": "Outdoor and Garden" },
+        { "id": "youth", "name": "Trendy Youth Cafés" }
+      ]
+    },
+    {
+      "icon": "🛠️",
+      "label": "Services",
+      "subcategories": [
+        { "id": "events", "name": "Event Planning and Venues" },
+        { "id": "photography", "name": "Photography and Videography" },
+        { "id": "tailoring", "name": "Tailoring and Fashion" },
+        { "id": "decor", "name": "Decor and Lighting" },
+        { "id": "logistics", "name": "Transportation and Logistics" },
+        { "id": "handicrafts", "name": "Handicrafts and Artisans" },
+        { "id": "health", "name": "Health Services" },
+        { "id": "education", "name": "Education Services" },
+        { "id": "beauty", "name": "Beauty and Salons" }
+      ]
+    },
+    {
+      "icon": "🎉",
+      "label": "Events",
+      "subcategories": [
+        { "id": "social", "name": "Social Events" },
+        { "id": "business", "name": "Business Events" },
+        { "id": "trade", "name": "Trade Shows" },
+        { "id": "conferences", "name": "Conferences" },
+        { "id": "education", "name": "Educational Events" },
+        { "id": "kids", "name": "Kids and Family Events" },
+        { "id": "music", "name": "Music and Concerts" },
+        { "id": "art", "name": "Art Exhibitions" }
+      ]
+    },
+    {
+      "icon": "🎭",
+      "label": "Entertainment",
+      "subcategories": [
+        { "id": "cinema", "name": "Cinema and Films" },
+        { "id": "livemusic", "name": "Live Music and Performances" },
+        { "id": "arcades", "name": "Game Zones and Arcades" },
+        { "id": "parks", "name": "Amusement Parks" }
+      ]
+    },
+    {
+      "icon": "🛍️",
+      "label": "Shopping",
+      "subcategories": [
+        { "id": "markets", "name": "Traditional Markets" },
+        { "id": "malls", "name": "Modern Malls" },
+        { "id": "gold", "name": "Gold and Jewelry" },
+        { "id": "antiques", "name": "Handicrafts and Antiques" },
+        { "id": "perfumes", "name": "Perfumes and Spices" },
+        { "id": "clothing", "name": "Clothing and Textiles" }
+      ]
+    },
+    {
+      "icon": "🚌",
+      "label": "Transportation",
+      "subcategories": [
+        { "id": "cars", "name": "Car Rentals" },
+        { "id": "buses", "name": "Bus Services" },
+        { "id": "taxis", "name": "Taxi Services" },
+        { "id": "ridehailing", "name": "Ride-Hailing (Careem, Uber, Kubak)" },
+        { "id": "shuttles", "name": "Tourist Shuttles" }
+      ]
+    },
+    {
+      "icon": "🗿",
+      "label": "Tourism",
+      "subcategories": [
+        { "id": "historical", "name": "Historical Sites and Ruins" },
+        { "id": "religious", "name": "Religious Shrines and Pilgrimage" },
+        { "id": "natural", "name": "Natural Attractions" },
+        { "id": "museums", "name": "Museums and Heritage Centers" },
+        { "id": "unesco", "name": "UNESCO World Heritage Sites" },
+        { "id": "picnic", "name": "Picnic and Family Parks" }
+      ]
+    }
+  ]
+}
