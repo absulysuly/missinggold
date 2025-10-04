@@ -1,9 +1,8 @@
 {
-  "categories.${event.category}": ""
+  "categories.${event.category}": "",
   "app": { "name": "Iraq Guide" },
   "navigation": {
     "eventPlatform": "منصة الفعاليات",
-    "home": "الرئيسية",
     "home": "الرئيسية",
     "events": "الفعاليات", 
     "categories": "الأقسام",
@@ -12,7 +11,6 @@
     "logout": "تسجيل الخروج",
     "dashboard": "لوحة التحكم",
     "createEvent": "إنشاء فعالية",
-    "eventPlatform": "منصة الفعاليات",
     "aiRecommendations": "اقتراحات فعاليات مدعومة بالذكاء الاصطناعي متاحة الآن!",
     "tryItFree": "جرّبها مجاناً",
     "language": "اللغة"
@@ -245,8 +243,8 @@
   },
   "common": {
     "allCities": "جميع المدن",
-    "allCategories": "جميع الأقسام",
-    "allMonths": "جميع الأشهر",
+    "allCategories": "جميع الفئات",
+    "allMonths": "جميع الشهور",
     "paid": "مدفوع",
     "free": "مجاني",
     "soldOut": "نفدت التذاكر",
@@ -268,12 +266,7 @@
     "previous": "السابق",
     "search": "بحث",
     "filter": "فلتر",
-    "allCategories": "جميع الفئات",
-    "allCities": "جميع المدن", 
-    "allMonths": "جميع الشهور",
     "allPrices": "جميع الأسعار",
-    "free": "مجاني",
-    "paid": "مدفوع",
     "under25": "أقل من 25 دولار",
     "price25to50": "25 - 50 دولار",
     "price50to100": "50 - 100 دولار",
@@ -397,19 +390,5 @@
     "createAccount": "إنشاء حساب",
     "alreadyHaveAccount": "لديك حساب بالفعل؟",
     "signInHere": "سجل الدخول هنا"
-  },
-  "navigation": {
-    "home": "الرئيسية",
-    "events": "الفعاليات", 
-    "categories": "الأقسام",
-    "about": "حول الموقع",
-    "login": "تسجيل الدخول",
-    "logout": "تسجيل الخروج",
-    "dashboard": "لوحة التحكم",
-    "createEvent": "إنشاء فعالية",
-    "eventPlatform": "منصة الفعاليات",
-    "aiRecommendations": "توصيات الذكاء الاصطناعي للفعاليات متاحة الآن!",
-    "tryItFree": "جربها مجاناً",
-    "language": "اللغة"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "categories.${event.category}": ""
+  "categories.${event.category}": "",
   "app": { "name": "Iraq Guide" },
   "navigation": {
     "home": "Home",
@@ -348,20 +348,6 @@
     "createAccount": "Create Account",
     "alreadyHaveAccount": "Already have an account?",
     "signInHere": "Sign in here"
-  },
-  "navigation": {
-    "home": "Home",
-    "events": "Events", 
-    "categories": "Categories",
-    "about": "About",
-    "login": "Login",
-    "logout": "Logout",
-    "dashboard": "Dashboard",
-    "createEvent": "Create Event",
-    "eventPlatform": "Event Platform",
-    "aiRecommendations": "AI-Powered Event Recommendations Now Live!",
-    "tryItFree": "Try it free",
-    "language": "Language"
   },
   "heroSlides": {
     "slide1": {

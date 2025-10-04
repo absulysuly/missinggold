@@ -509,12 +509,12 @@ export function LiveChatSystem({
   };
 
   return (
-    <div className=\"flex flex-col h-full bg-white dark:bg-gray-900\">
+    <div className="flex flex-col h-full bg-white dark:bg-gray-900">
       {/* Header */}
-      <div className=\"border-b border-gray-200 dark:border-gray-700 p-4\">
-        <div className=\"flex items-center justify-between\">
-          <div className=\"flex items-center gap-2\">
-            <h3 className=\"text-lg font-semibold text-gray-900 dark:text-white\">
+      <div className="border-b border-gray-200 dark:border-gray-700 p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Live Chat
             </h3>
             <div className={`w-2 h-2 rounded-full ${
@@ -522,23 +522,23 @@ export function LiveChatSystem({
               connectionStatus === 'connecting' ? 'bg-yellow-500' : 'bg-red-500'
             }`}></div>
             {unreadCount > 0 && (
-              <span className=\"bg-red-500 text-white text-xs px-2 py-1 rounded-full\">
+              <span className="bg-red-500 text-white text-sm px-2 py-1 rounded-full">
                 {unreadCount}
               </span>
             )}
           </div>
           
-          <div className=\"flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400\">
+          <div className="flex items-center gap-2 text-base text-gray-500 dark:text-gray-400">
             <span>{participants.length} participants</span>
             {chatSettings.slowMode > 0 && (
-              <span className=\"text-yellow-600\">Slow mode: {chatSettings.slowMode}s</span>
+              <span className="text-yellow-600">Slow mode: {chatSettings.slowMode}s</span>
             )}
           </div>
         </div>
       </div>
 
       {/* Messages */}
-      <div className=\"flex-1 overflow-y-auto p-4 space-y-4\">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
             key={message.id}
@@ -546,8 +546,8 @@ export function LiveChatSystem({
               message.userId === userId ? 'flex-row-reverse' : 'flex-row'
             }`}
           >
-            <div className=\"w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0\">
-              <span className=\"text-xs font-medium text-gray-700 dark:text-gray-300\">
+            <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {message.userName?.charAt(0) || 'U'}
               </span>
             </div>
@@ -555,11 +555,11 @@ export function LiveChatSystem({
             <div className={`max-w-xs lg:max-w-md ${
               message.userId === userId ? 'items-end' : 'items-start'
             }`}>
-              <div className=\"flex items-center gap-2 mb-1\">
-                <span className=\"text-sm font-medium text-gray-900 dark:text-white\">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-base font-medium text-gray-900 dark:text-white">
                   {message.userName}
                 </span>
-                <span className=\"text-xs text-gray-500 dark:text-gray-400\">
+                <span className="text-sm text-gray-500 dark:text-gray-400">
                   {formatTime(message.timestamp)}
                 </span>
               </div>
@@ -572,18 +572,18 @@ export function LiveChatSystem({
                 }`}
               >
                 {message.type === 'system' ? (
-                  <div className=\"text-xs italic opacity-75\">{message.message}</div>
+                  <div className="text-sm italic opacity-75">{message.message}</div>
                 ) : (
-                  <div>{message.message}</div>
+                  <div className="text-base leading-relaxed">{message.message}</div>
                 )}
                 
                 {message.reactions && message.reactions.length > 0 && (
-                  <div className=\"flex gap-1 mt-2\">
+                  <div className="flex gap-1 mt-2">
                     {message.reactions.map((reaction) => (
                       <button
                         key={reaction.emoji}
                         onClick={() => sendReaction(message.id, reaction.emoji)}
-                        className={`px-2 py-1 rounded-full text-xs ${
+                        className={`px-2 py-1 rounded-full text-sm ${
                           reaction.users.includes(userId)
                             ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
                             : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
@@ -597,10 +597,10 @@ export function LiveChatSystem({
               </div>
               
               {(userRole === 'moderator' || userRole === 'admin') && message.userId !== userId && (
-                <div className=\"flex gap-1 mt-1\">
+                <div className="flex gap-1 mt-1">
                   <button
                     onClick={() => moderateMessage(message.id, 'delete')}
-                    className=\"text-xs text-red-500 hover:text-red-600\"
+                    className="text-sm text-red-500 hover:text-red-600"
                   >
                     Delete
                   </button>
@@ -611,8 +611,8 @@ export function LiveChatSystem({
         ))}
         
         {isTyping.length > 0 && (
-          <div className=\"flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400\">
-            <div className=\"typing-indicator\">
+          <div className="flex items-center gap-2 text-base text-gray-500 dark:text-gray-400">
+            <div className="typing-indicator">
               <span></span>
               <span></span>
               <span></span>
@@ -626,24 +626,24 @@ export function LiveChatSystem({
 
       {/* Active Poll */}
       {activePoll && (
-        <div className=\"border-t border-gray-200 dark:border-gray-700 p-4\">
-          <div className=\"bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4\">
-            <h4 className=\"font-medium text-gray-900 dark:text-white mb-3\">
+        <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+            <h4 className="font-medium text-gray-900 dark:text-white mb-3">
               📊 {activePoll.question}
             </h4>
-            <div className=\"space-y-2\">
+            <div className="space-y-2">
               {activePoll.options.map((option) => (
                 <button
                   key={option.id}
                   onClick={() => votePoll(option.id)}
-                  className=\"w-full text-left p-2 rounded bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 flex justify-between items-center\"
+                  className="w-full text-left p-2 rounded bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 flex justify-between items-center"
                 >
                   <span>{option.text}</span>
-                  <span className=\"text-sm text-gray-500\">{option.votes} votes</span>
+                  <span className="text-sm text-gray-500">{option.votes} votes</span>
                 </button>
               ))}
             </div>
-            <div className=\"text-xs text-gray-500 dark:text-gray-400 mt-2\">
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               Total votes: {activePoll.totalVotes}
             </div>
           </div>
@@ -651,9 +651,9 @@ export function LiveChatSystem({
       )}
 
       {/* Input */}
-      <div className=\"border-t border-gray-200 dark:border-gray-700 p-4\">
-        <div className=\"flex items-end gap-2\">
-          <div className=\"flex-1\">
+      <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+        <div className="flex items-end gap-2">
+          <div className="flex-1">
             <textarea
               ref={messageInputRef}
               value={newMessage}
@@ -667,26 +667,26 @@ export function LiveChatSystem({
                   sendMessage();
                 }
               }}
-              placeholder=\"Type a message...\"
+              placeholder="Type a message..."
               rows={1}
-              className=\"w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none\"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
               disabled={connectionStatus !== 'connected'}
             />
           </div>
           
-          <div className=\"flex gap-1\">
+          <div className="flex gap-1">
             {chatSettings.allowFileSharing && (
               <>
                 <input
                   ref={fileInputRef}
-                  type=\"file\"
+                  type="file"
                   onChange={handleFileUpload}
-                  className=\"hidden\"
-                  accept=\"image/*,.pdf,.doc,.docx,.txt\"
+                  className="hidden"
+                  accept="image/*,.pdf,.doc,.docx,.txt"
                 />
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className=\"p-2 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300\"
+                  className="p-2 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                   disabled={connectionStatus !== 'connected'}
                 >
                   📎
@@ -697,7 +697,7 @@ export function LiveChatSystem({
             {chatSettings.allowReactions && (
               <button
                 onClick={() => setShowEmojis(!showEmojis)}
-                className=\"p-2 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300\"
+                className="p-2 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
               >
                 😊
               </button>
@@ -706,7 +706,7 @@ export function LiveChatSystem({
             <button
               onClick={sendMessage}
               disabled={!newMessage.trim() || connectionStatus !== 'connected'}
-              className=\"px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed\"
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Send
             </button>
@@ -715,25 +715,25 @@ export function LiveChatSystem({
       </div>
 
       {/* Participants Sidebar */}
-      <div className=\"w-64 border-l border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800\">
-        <div className=\"p-4\">
-          <h4 className=\"text-sm font-medium text-gray-900 dark:text-white mb-3\">
+      <div className="w-64 border-l border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+        <div className="p-4">
+          <h4 className="text-base font-medium text-gray-900 dark:text-white mb-3">
             Participants ({participants.length})
           </h4>
-          <div className=\"space-y-2\">
+          <div className="space-y-2">
             {participants.map((participant) => (
-              <div key={participant.id} className=\"flex items-center gap-2\">
-                <span className=\"text-xs\">{getStatusIcon(participant.status)}</span>
-                <div className=\"w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center\">
-                  <span className=\"text-xs font-medium text-gray-700 dark:text-gray-300\">
+              <div key={participant.id} className="flex items-center gap-2">
+                <span className="text-xs">{getStatusIcon(participant.status)}</span>
+                <div className="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     {participant.name.charAt(0)}
                   </span>
                 </div>
-                <div className=\"flex-1 min-w-0\">
-                  <div className=\"text-sm font-medium text-gray-900 dark:text-white truncate\">
+                <div className="flex-1 min-w-0">
+                  <div className="text-base font-medium text-gray-900 dark:text-white truncate">
                     {participant.name}
                   </div>
-                  <div className=\"text-xs text-gray-500 dark:text-gray-400\">
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
                     {participant.role}
                   </div>
                 </div>

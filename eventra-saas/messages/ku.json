@@ -1,5 +1,5 @@
 {
-  "categories.${event.category}": ""
+  "categories.${event.category}": "",
   "app": { "name": "Iraq Guide" },
   "navigation": {
     "eventPlatform": "پلاتفۆرمی بۆنەکان",

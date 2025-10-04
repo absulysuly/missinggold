@@ -180,7 +180,7 @@ export function PerformanceDashboard() {
           <div className="mt-3 text-xs">
             <span className="text-green-600 dark:text-green-400">≤ 2.5s {t('performance.good')}</span> • 
             <span className="text-yellow-600 dark:text-yellow-400 ml-1">≤ 4.0s {t('performance.fair')}</span> • 
-            <span className="text-red-600 dark:text-red-400 ml-1">> 4.0s {t('performance.poor')}</span>
+            <span className="text-red-600 dark:text-red-400 ml-1">&gt; 4.0s {t('performance.poor')}</span>
           </div>
         </div>
 
@@ -203,7 +203,7 @@ export function PerformanceDashboard() {
           <div className="mt-3 text-xs">
             <span className="text-green-600 dark:text-green-400">≤ 100ms {t('performance.good')}</span> • 
             <span className="text-yellow-600 dark:text-yellow-400 ml-1">≤ 300ms {t('performance.fair')}</span> • 
-            <span className="text-red-600 dark:text-red-400 ml-1">> 300ms {t('performance.poor')}</span>
+            <span className="text-red-600 dark:text-red-400 ml-1">&gt; 300ms {t('performance.poor')}</span>
           </div>
         </div>
 
@@ -226,7 +226,7 @@ export function PerformanceDashboard() {
           <div className="mt-3 text-xs">
             <span className="text-green-600 dark:text-green-400">≤ 0.1 {t('performance.good')}</span> • 
             <span className="text-yellow-600 dark:text-yellow-400 ml-1">≤ 0.25 {t('performance.fair')}</span> • 
-            <span className="text-red-600 dark:text-red-400 ml-1">> 0.25 {t('performance.poor')}</span>
+            <span className="text-red-600 dark:text-red-400 ml-1">&gt; 0.25 {t('performance.poor')}</span>
           </div>
         </div>
       </div>

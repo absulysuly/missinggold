@@ -8,48 +8,29 @@
    =================================== */
 
 @theme {
-  /* Color system */
-  --color-night-50: #f5f7fa;
-  --color-night-100: #e4e9f0;
-  --color-night-200: #cdd5e3;
-  --color-night-300: #a8b7cd;
-  --color-night-400: #7d93b3;
-  --color-night-500: #5f759c;
-  --color-night-600: #4c5d81;
-  --color-night-700: #3f4b68;
-  --color-night-800: #374157;
-  --color-night-900: #1a1f35;
-  --color-night-950: #0a0e1a;
-  
-  --color-gold-50: #fef8f0;
-  --color-gold-100: #fcefd9;
-  --color-gold-200: #f9dcb2;
-  --color-gold-300: #f6c280;
-  --color-gold-400: #f4a261;
-  --color-gold-500: #f18437;
-  --color-gold-600: #e26b20;
-  --color-gold-700: #bc5418;
-  --color-gold-800: #96441a;
-  --color-gold-900: #793a18;
-  
-  /* Purple-Pink brand gradient colors */
-  --color-brand-purple-light: #7c6ba1;
-  --color-brand-purple: #5c527f;
-  --color-brand-purple-dark: #4a4067;
-  --color-brand-pink: #d6336c;
-  --color-brand-pink-light: #e91e63;
-  --color-brand-pink-bright: #ec407a;
-  
-  --color-cyan-50: #e6fcff;
-  --color-cyan-100: #b3f5ff;
-  --color-cyan-200: #80eeff;
-  --color-cyan-300: #4de7ff;
-  --color-cyan-400: #00d9ff;
-  --color-cyan-500: #00b8d9;
-  --color-cyan-600: #0096b3;
-  --color-cyan-700: #00758c;
-  --color-cyan-800: #005566;
-  --color-cyan-900: #003640;
+  /* Brand Color Palette */
+  --primary: #6C2BD9;
+  --primary-glass: rgba(108, 43, 217, 0.15);
+  --primary-glow: rgba(108, 43, 217, 0.4);
+
+  --secondary: #00D9FF;
+  --secondary-glass: rgba(0, 217, 255, 0.12);
+  --secondary-glow: rgba(0, 217, 255, 0.4);
+
+  --accent: #FF2E97;
+  --accent-glass: rgba(255, 46, 151, 0.12);
+  --accent-glow: rgba(255, 46, 151, 0.4);
+
+  /* Surfaces */
+  --dark-bg: #0A0E27;
+  --glass-surface: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-hover: rgba(255, 255, 255, 0.08);
+
+  /* Effects */
+  --backdrop-blur: blur(20px);
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px var(--primary-glow);
   
   /* Font families */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -78,8 +59,8 @@
   }
   
   @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 20px rgba(244, 162, 97, 0.3); }
-    50% { box-shadow: 0 0 40px rgba(244, 162, 97, 0.6); }
+    0%, 100% { box-shadow: 0 0 20px var(--primary-glow); }
+    50% { box-shadow: 0 0 40px var(--primary-glow); }
   }
 }
 
@@ -87,67 +68,19 @@
    CUSTOM GLASS UTILITIES
    =================================== */
 
-@utility glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.glass-component {
+  backdrop-filter: var(--backdrop-blur);
+  background-color: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-soft);
+  transition: all 300ms ease;
 }
 
-@utility glass-hover {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-@utility glass-strong {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-@utility glass-light {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-@utility glass-dark {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-@utility glass-gold {
-  background: rgba(244, 162, 97, 0.1);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(244, 162, 97, 0.2);
-  box-shadow: 0 8px 32px rgba(244, 162, 97, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-@utility glass-cyan {
-  background: rgba(0, 217, 255, 0.1);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 217, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 217, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-@utility glass-brand {
-  background: linear-gradient(135deg, rgba(92, 82, 127, 0.25) 0%, rgba(214, 51, 108, 0.15) 100%);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(214, 51, 108, 0.3);
-  box-shadow: 0 8px 32px rgba(214, 51, 108, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-@utility glass-brand-strong {
-  background: linear-gradient(135deg, rgba(92, 82, 127, 0.4) 0%, rgba(214, 51, 108, 0.3) 100%);
-  backdrop-filter: blur(40px);
-  border: 1px solid rgba(214, 51, 108, 0.4);
-  box-shadow: 0 16px 48px rgba(214, 51, 108, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+.glass-component:hover {
+  background-color: var(--glass-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-glow);
 }
 
 /* 3D Rounded Square Tile with glowing edge */
@@ -201,7 +134,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+  background-color: var(--dark-bg);
   background-attachment: fixed;
   color: #ffffff;
   overflow-x: hidden;

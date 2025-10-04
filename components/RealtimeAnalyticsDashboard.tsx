@@ -578,24 +578,24 @@ export function RealtimeAnalyticsDashboard({
   };
 
   return (
-    <div className=\"space-y-6 p-6 bg-white dark:bg-gray-900\">
+    <div className="space-y-6 p-6 bg-white dark:bg-gray-900">
       {/* Header */}
-      <div className=\"flex items-center justify-between\">
+      <div className="flex items-center justify-between">
         <div>
-          <h2 className=\"text-2xl font-bold text-gray-900 dark:text-white\">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             Real-time Analytics
           </h2>
-          <p className=\"text-gray-600 dark:text-gray-400\">
+          <p className="text-gray-600 dark:text-gray-400">
             Live system and user activity monitoring
           </p>
         </div>
         
-        <div className=\"flex items-center gap-4\">
-          <div className=\"flex items-center gap-2\">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <div className={`w-3 h-3 rounded-full ${
               isRealTimeActive ? 'bg-green-500 animate-pulse' : 'bg-gray-400'
             }`}></div>
-            <span className=\"text-sm text-gray-600 dark:text-gray-400\">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
               {isRealTimeActive ? 'Live' : 'Paused'}
             </span>
           </div>
@@ -614,7 +614,7 @@ export function RealtimeAnalyticsDashboard({
           {isAdmin && (
             <button
               onClick={() => setShowAlertConfig(true)}
-              className=\"px-3 py-2 bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900/20 dark:text-blue-400 rounded-lg text-sm font-medium\"
+              className="px-3 py-2 bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900/20 dark:text-blue-400 rounded-lg text-sm font-medium"
             >
               Configure Alerts
             </button>
@@ -624,18 +624,18 @@ export function RealtimeAnalyticsDashboard({
 
       {/* Alerts Section */}
       {alerts.length > 0 && (
-        <div className=\"bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4\">
-          <div className=\"flex items-center justify-between mb-3\">
-            <h3 className=\"text-lg font-medium text-red-800 dark:text-red-200\">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-medium text-red-800 dark:text-red-200">
               Active Alerts ({alerts.filter(a => !a.acknowledged).length})
             </h3>
           </div>
-          <div className=\"space-y-2 max-h-32 overflow-y-auto\">
+          <div className="space-y-2 max-h-32 overflow-y-auto">
             {alerts.slice(0, 5).map(alert => (
               <div key={alert.id} className={`flex items-center justify-between p-2 rounded ${
                 alert.acknowledged ? 'bg-gray-100 dark:bg-gray-700' : 'bg-white dark:bg-gray-800'
               }`}>
-                <div className=\"flex items-center gap-2\">
+                <div className="flex items-center gap-2">
                   <span className={`w-2 h-2 rounded-full ${
                     alert.rule.severity === 'critical' ? 'bg-red-600' :
                     alert.rule.severity === 'high' ? 'bg-orange-500' :
@@ -651,7 +651,7 @@ export function RealtimeAnalyticsDashboard({
                 {!alert.acknowledged && (
                   <button
                     onClick={() => acknowledgeAlert(alert.id)}
-                    className=\"px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 rounded\"
+                    className="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 rounded"
                   >
                     Acknowledge
                   </button>
@@ -663,7 +663,7 @@ export function RealtimeAnalyticsDashboard({
       )}
 
       {/* Metrics Overview */}
-      <div className=\"grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4\">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
         {(Object.keys(metrics) as Array<keyof RealtimeMetrics>).map(metric => {
           const currentValue = getCurrentValue(metric);
           const changeRate = getChangeRate(metric);
@@ -678,12 +678,12 @@ export function RealtimeAnalyticsDashboard({
                   : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
-              <div className=\"text-center\">
-                <div className=\"text-2xl mb-1\">{getMetricIcon(metric)}</div>
+              <div className="text-center">
+                <div className="text-2xl mb-1">{getMetricIcon(metric)}</div>
                 <div className={`text-lg font-bold ${getMetricColor(metric)}`}>
                   {currentValue.toFixed(metric === 'systemLoad' || metric === 'errorRate' || metric === 'responseTime' ? 1 : 0)}
                 </div>
-                <div className=\"text-xs text-gray-500 dark:text-gray-400 capitalize mb-1\">
+                <div className="text-xs text-gray-500 dark:text-gray-400 capitalize mb-1">
                   {metric.replace(/([A-Z])/g, ' $1').trim()}
                 </div>
                 <div className={`text-xs font-medium ${
@@ -698,21 +698,21 @@ export function RealtimeAnalyticsDashboard({
       </div>
 
       {/* Chart */}
-      <div className=\"bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700\">
-        <div className=\"flex items-center justify-between mb-4\">
-          <h3 className=\"text-lg font-semibold text-gray-900 dark:text-white\">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {getMetricIcon(selectedMetric)} {selectedMetric.replace(/([A-Z])/g, ' $1').trim()}
           </h3>
           
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value as any)}
-            className=\"px-3 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white\"
+            className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
-            <option value=\"5m\">Last 5 minutes</option>
-            <option value=\"15m\">Last 15 minutes</option>
-            <option value=\"1h\">Last hour</option>
-            <option value=\"24h\">Last 24 hours</option>
+            <option value="5m">Last 5 minutes</option>
+            <option value="15m">Last 15 minutes</option>
+            <option value="1h">Last hour</option>
+            <option value="24h">Last 24 hours</option>
           </select>
         </div>
         
@@ -720,30 +720,30 @@ export function RealtimeAnalyticsDashboard({
           ref={chartCanvasRef}
           width={800}
           height={300}
-          className=\"w-full h-64 border border-gray-200 dark:border-gray-600 rounded\"
+          className="w-full h-64 border border-gray-200 dark:border-gray-600 rounded"
         ></canvas>
       </div>
 
       {/* Recent User Activities */}
-      <div className=\"bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700\">
-        <h3 className=\"text-lg font-semibold text-gray-900 dark:text-white mb-4\">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
           Recent User Activities
         </h3>
         
-        <div className=\"space-y-2 max-h-64 overflow-y-auto\">
+        <div className="space-y-2 max-h-64 overflow-y-auto">
           {userActivities.map(activity => (
-            <div key={`${activity.userId}-${activity.timestamp}`} className=\"flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700\">
-              <div className=\"flex items-center gap-3\">
-                <div className=\"w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center\">
-                  <span className=\"text-xs font-medium text-gray-700 dark:text-gray-300\">
+            <div key={`${activity.userId}-${activity.timestamp}`} className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                     {activity.userName.charAt(0)}
                   </span>
                 </div>
                 <div>
-                  <div className=\"text-sm font-medium text-gray-900 dark:text-white\">
+                  <div className="text-sm font-medium text-gray-900 dark:text-white">
                     {activity.userName} {activity.action}
                   </div>
-                  <div className=\"text-xs text-gray-500 dark:text-gray-400\">
+                  <div className="text-xs text-gray-500 dark:text-gray-400">
                     {activity.location && `${activity.location} • `}
                     {new Date(activity.timestamp).toLocaleTimeString()}
                   </div>
@@ -753,7 +753,7 @@ export function RealtimeAnalyticsDashboard({
           ))}
           
           {userActivities.length === 0 && (
-            <div className=\"text-center py-8 text-gray-500 dark:text-gray-400\">
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
               No recent activity
             </div>
           )}
