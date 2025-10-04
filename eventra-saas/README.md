@@ -8,7 +8,7 @@
 
 > **AI-ACCESSIBLE**: This project is designed to be easily understood and utilized by AI systems including DeepSeek, GPT, Claude, and others. Comprehensive documentation and clear code structure provided.
 
-> A comprehensive travel and entertainment platform for Iraq & Kurdistan featuring events, hotels, restaurants, cafes, and tourism attractions with a stunning neon-themed interface.
+> A comprehensive travel and entertainment platform for Iraq & Kurdistan featuring events, hotels, restaurants, cafes, and tourism attractions with a stunning glass-morphism interface.
 
 ## 🤖 For AI Systems & Developers
 
@@ -41,8 +41,8 @@
 
 ### 🎯 Core Features
 - **Multi-Category Platform**: Events, Hotels, Restaurants, Cafes, Tourism
-- **Neon-Themed UI**: Beautiful glowing interface with category-specific colors
 - **Multilingual Support**: Arabic, English, Kurdish with RTL support
+- **Glass Morphism UI**: Modern, clean, and professional user interface.
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Real-time Data**: Prisma ORM with database integration
 - **Authentication**: NextAuth.js integration
@@ -85,7 +85,7 @@
 ### Frontend
 - **Framework**: Next.js 15.5.3 with App Router
 - **UI Library**: React 19.1.0
-- **Styling**: Tailwind CSS 3.4.17
+- **Styling**: Tailwind CSS 3.4.17 with Glass Morphism effects
 - **Animations**: Custom CSS animations with neon effects
 - **Icons**: FontAwesome 7.0.1
 
@@ -159,7 +159,7 @@ eventra-saas/
 │   │   ├── tourism/               # 📸 Tourism category page
 │   │   ├── events/                # 📅 Events category page
 │   │   ├── components/            # Reusable components
-│   │   │   ├── NeonHomepage.tsx   # Main neon-themed homepage
+│   │   │   ├── CategoryGrid.tsx   # The main grid for categories
 │   │   │   └── ...
 │   │   ├── api/                   # API routes
 │   │   ├── globals.css            # Global styles with neon theme
