@@ -42,6 +42,10 @@
     "validate:translations:ci": "node scripts/validate-translations.js --fail-fast",
     "import:events:csv": "tsx scripts/csv-to-events-json.ts",
     "test": "echo \"No tests specified\" && exit 0",
+    "qa:test": "playwright test",
+    "qa:test:headed": "playwright test --headed",
+    "qa:a11y": "playwright test tests/08_accessibility.spec.ts",
+    "qa:perf": "node scripts/run_lhci.mjs",
     "prebuild": "npm run lint",
     "postinstall": "prisma generate"
   },
@@ -67,7 +71,9 @@
     "workbox-window": "^7.3.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.9.1",
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.47.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
@@ -79,6 +85,7 @@
     "eslint": "^9.36.0",
     "eslint-config-next": "^15.5.3",
     "glob": "^11.0.3",
+    "lighthouse-ci": "^0.13.2",
     "postcss": "^8.5.6",
     "rimraf": "^6.0.1",
     "tailwindcss": "^3.4.17",
