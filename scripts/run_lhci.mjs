@@ -5,7 +5,7 @@ const pages = ['/', '/payments/checkout', '/campaigns/new', '/admin'].map(p => u
 
 const run = (page) =>
   new Promise((resolve, reject) => {
-    const child = spawn('npx', ['lhci', 'autorun', '--collect.url=' + page, '--collect.numberOfRuns=1'], { stdio: 'inherit', shell: true });
+    const child = spawn('npx', ['@lhci/cli', 'autorun', '--collect.url=' + page, '--collect.numberOfRuns=1'], { stdio: 'inherit', shell: true });
     child.on('exit', code => code === 0 ? resolve() : reject(new Error('lhci failed')));
   });
 
