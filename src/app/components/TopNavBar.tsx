@@ -1,62 +1,359 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import type { Session } from "next-auth";
+import { signOut, useSession } from "next-auth/react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type JSX,
+} from "react";
 
 import { useLanguage } from "./LanguageProvider";
 import { useTranslations } from "../hooks/useTranslations";
 
-type SupportedLanguage = "en" | "ar" | "ku";
-
-const LANGUAGE_LABELS: Record<SupportedLanguage, string> = {
-  en: "English",
-  ar: "العربية",
-  ku: "کوردی",
-};
-
-const LANGUAGE_FLAGS: Record<SupportedLanguage, string> = {
-  en: "🇺🇸",
-  ar: "🇮🇶",
-  ku: "🇮🇶",
-};
-
-const LANGUAGE_OPTIONS: SupportedLanguage[] = ["en", "ar", "ku"];
-
 const MOBILE_BREAKPOINT = 768;
+const SHOW_TOP_BANNER = process.env.NEXT_PUBLIC_SHOW_TOP_BANNER === "true";
 
-const TopNavBar = () => {
+const LANGUAGE_OPTIONS = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "ar", label: "العربية", flag: "🇮🇶" },
+  { code: "ku", label: "کوردی", flag: "🇮🇶" },
+] as const;
+
+const PRIMARY_LINKS = [
+  { slug: "/", labelKey: "navigation.home", accent: "events" },
+  { slug: "/events", labelKey: "navigation.events", accent: "events" },
+  { slug: "/hotels", label: "Hotels", accent: "hotels" },
+  { slug: "/restaurants", label: "Restaurants", accent: "restaurants" },
+  { slug: "/tourism", label: "Tourism", accent: "tourism" },
+  { slug: "/categories", labelKey: "navigation.categories", accent: "events" },
+  { slug: "/about", labelKey: "navigation.about", accent: "events" },
+] as const;
+
+type SupportedLanguage = (typeof LANGUAGE_OPTIONS)[number]["code"];
+type PrimaryLink = (typeof PRIMARY_LINKS)[number];
+
+type NavigationLink = PrimaryLink & { href: string; label: string };
+
+type LanguageOption = (typeof LANGUAGE_OPTIONS)[number];
+type LanguageValue = ReturnType<typeof useLanguage>["language"];
+
+const languageLabel = (option: LanguageOption): string =>
+  `${option.flag} ${option.label}`;
+
+const buildLocalizedPath = (
+  basePath: string,
+  slug: PrimaryLink["slug"] | "/login" | "/register" | "/dashboard"
+): string => {
+  if (!slug.startsWith("/")) {
+    throw new Error(`Expected slug to start with "/": ${slug}`);
+  }
+
+  return `${basePath}${slug}`.replace(/\/{2,}/g, "/");
+};
+
+const getBasePath = (language: SupportedLanguage): string =>
+  language === "en" ? "" : `/${language}`;
+
+const TopBanner = ({
+  registerPath,
+  isRTL,
+  translate,
+}: {
+  registerPath: string;
+  isRTL: boolean;
+  translate: (key: string) => string;
+}): JSX.Element | null => {
+  if (!SHOW_TOP_BANNER) {
+    return null;
+  }
+
+  return (
+    <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 text-center text-sm font-medium">
+      🎉 {translate("navigation.aiRecommendations")}
+      <Link
+        href={registerPath}
+        className="underline ml-2 font-semibold hover:text-yellow-300"
+      >
+        {translate("navigation.tryItFree")} {isRTL ? "←" : "→"}
+      </Link>
+    </div>
+  );
+};
+
+const AccountActions = ({
+  session,
+  loginPath,
+  registerPath,
+  dashboardPath,
+  onLogout,
+  translate,
+}: {
+  session: Session | null;
+  loginPath: string;
+  registerPath: string;
+  dashboardPath: string;
+  onLogout: () => void;
+  translate: (key: string) => string;
+}): JSX.Element => {
+  if (session) {
+    const userInitial = (
+      session.user?.name?.charAt(0) ??
+      session.user?.email?.charAt(0) ??
+      "U"
+    ).toUpperCase();
+
+    return (
+      <div className="flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+            <span className="text-white text-sm font-semibold">
+              {userInitial}
+            </span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-gray-800">
+              {session.user?.name ?? "User"}
+            </span>
+            <span className="text-xs text-gray-500">
+              {session.user?.email ?? ""}
+            </span>
+          </div>
+        </div>
+        <Link
+          href={dashboardPath}
+          className="inline-block px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
+        >
+          {translate("navigation.dashboard")}
+        </Link>
+        <button
+          onClick={onLogout}
+          className="text-gray-600 hover:text-red-600 font-medium transition-colors hidden md:block"
+          type="button"
+        >
+          {translate("navigation.logout")}
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3">
+      <Link
+        href={loginPath}
+        className="inline-block px-4 py-1.5 rounded-full bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
+      >
+        {translate("navigation.login")}
+      </Link>
+      <Link
+        href={registerPath}
+        className="hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500 text-purple-600 font-semibold hover:bg-purple-50 transition-colors"
+      >
+        <span>✨</span>
+        {translate("navigation.tryItFree")}
+      </Link>
+    </div>
+  );
+};
+
+const LanguageMenu = ({
+  language,
+  isRTL,
+  onLanguageChange,
+}: {
+  language: SupportedLanguage;
+  isRTL: boolean;
+  onLanguageChange: (lang: SupportedLanguage) => void;
+}): JSX.Element => {
+  const activeLanguageLabel = useMemo(() => {
+    const activeOption = LANGUAGE_OPTIONS.find(
+      (option) => option.code === language
+    );
+
+    return activeOption ? languageLabel(activeOption) : languageLabel(LANGUAGE_OPTIONS[0]);
+  }, [language]);
+
+  return (
+    <div className="relative group hidden sm:block" data-testid="language-switcher">
+      <button
+        className="flex items-center gap-2 px-3 py-2 font-medium transition-colors rounded-full"
+        style={{ color: "var(--text-primary)" }}
+        type="button"
+      >
+        <span className="text-lg">🌐</span>
+        <span className="text-sm" suppressHydrationWarning>
+          {activeLanguageLabel}
+        </span>
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+      <div
+        className={`absolute ${isRTL ? "left-0" : "right-0"} top-full mt-1 rounded-lg min-w-[160px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50`}
+        style={{
+          background: "var(--bg-secondary)",
+          border: "1px solid var(--events-color)",
+        }}
+      >
+        {LANGUAGE_OPTIONS.map((option) => (
+          <button
+            key={option.code}
+            onClick={() => onLanguageChange(option.code)}
+            className="w-full px-4 py-2 text-left transition-colors rounded-lg hover:bg-white/10"
+            style={{
+              color:
+                language === option.code
+                  ? "var(--events-color)"
+                  : "var(--text-primary)",
+            }}
+            type="button"
+          >
+            {languageLabel(option)}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const MobileLanguageMenu = ({
+  language,
+  onLanguageChange,
+  translate,
+}: {
+  language: SupportedLanguage;
+  onLanguageChange: (lang: SupportedLanguage) => void;
+  translate: (key: string) => string;
+}): JSX.Element => (
+  <div className="pt-4 border-t border-gray-100 mt-4">
+    <div className="text-sm text-gray-600 mb-2">{translate("navigation.language")}</div>
+    <div className="flex gap-2">
+      {LANGUAGE_OPTIONS.map((option) => (
+        <button
+          key={option.code}
+          onClick={() => onLanguageChange(option.code)}
+          className={`px-3 py-1 text-sm rounded-full font-medium ${
+            language === option.code
+              ? "bg-purple-100 text-purple-600"
+              : "text-gray-600 hover:bg-gray-100"
+          }`}
+          type="button"
+        >
+          {option.flag}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+const DesktopLinks = ({ links }: { links: NavigationLink[] }): JSX.Element => (
+  <div className="hidden md:flex items-center gap-8">
+    {links.slice(0, 5).map(({ href, label, accent }) => (
+      <Link
+        key={href}
+        href={href}
+        className="font-medium transition-colors relative group"
+        style={{ color: "var(--text-primary)" }}
+      >
+        {label}
+        <span
+          className="absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
+          style={{
+            backgroundColor: `var(--${accent}-color)`,
+            boxShadow: `0 0 5px var(--${accent}-color)`,
+          }}
+        />
+      </Link>
+    ))}
+  </div>
+);
+
+const MobileLinks = ({
+  links,
+  loginPath,
+  registerPath,
+  hasSession,
+  translate,
+  onClose,
+}: {
+  links: NavigationLink[];
+  loginPath: string;
+  registerPath: string;
+  hasSession: boolean;
+  translate: (key: string) => string;
+  onClose: () => void;
+}): JSX.Element => (
+  <div className="flex flex-col gap-4">
+    {links.map(({ href, label }) => (
+      <Link
+        key={href}
+        href={href}
+        className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
+        onClick={onClose}
+      >
+        {label}
+      </Link>
+    ))}
+
+    {!session && (
+      <div className="flex gap-3 pt-2">
+        <Link
+          href={loginPath}
+          className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full font-semibold flex items-center gap-2"
+          onClick={onClose}
+        >
+          <span>🔑</span>
+          {translate("navigation.login")}
+        </Link>
+        <Link
+          href={registerPath}
+          className="border border-purple-500 text-purple-600 px-4 py-2 rounded-full font-semibold hover:bg-purple-50 transition-colors"
+          onClick={onClose}
+        >
+          {translate("navigation.tryItFree")}
+        </Link>
+      </div>
+    )}
+  </div>
+);
+
+export function TopNavBar(): JSX.Element {
   const { data: session } = useSession();
   const { language, setLanguage, isRTL } = useLanguage();
   const { t } = useTranslations();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const currentLanguage = language as SupportedLanguage;
 
-  const showTopBanner = useMemo(
-    () => process.env.NEXT_PUBLIC_SHOW_TOP_BANNER === "true",
-    []
+  const basePath = useMemo(() => getBasePath(currentLanguage), [currentLanguage]);
+
+  const navigationLinks = useMemo<NavigationLink[]>(() => {
+    return PRIMARY_LINKS.map((link) => ({
+      ...link,
+      href: buildLocalizedPath(basePath, link.slug),
+      label: link.label ?? (link.labelKey ? t(link.labelKey) : ""),
+    }));
+  }, [basePath, t]);
+
+  const loginPath = useMemo(
+    () => buildLocalizedPath(basePath, "/login"),
+    [basePath]
   );
-
-  const basePath = useMemo(
-    () => (language === "en" ? "" : `/${language}`),
-    [language]
+  const registerPath = useMemo(
+    () => buildLocalizedPath(basePath, "/register"),
+    [basePath]
   );
-
-  const languageDisplay = useMemo(() => {
-    const label = LANGUAGE_LABELS[language as SupportedLanguage] ?? "Language";
-    const flag = LANGUAGE_FLAGS[language as SupportedLanguage] ?? "🌐";
-    return `${flag} ${label}`;
-  }, [language]);
-
-  const toggleMenu = useCallback(() => {
-    setIsMenuOpen((prev) => !prev);
-  }, []);
-
-  const handleLanguageChange = useCallback(
-    (targetLanguage: SupportedLanguage) => {
-      setLanguage(targetLanguage as any);
-    },
-    [setLanguage]
+  const dashboardPath = useMemo(
+    () => buildLocalizedPath(basePath, "/dashboard"),
+    [basePath]
   );
 
   useEffect(() => {
@@ -69,62 +366,28 @@ const TopNavBar = () => {
     }
   }, []);
 
-  const navigationLinks = useMemo(
-    () => [
-      { href: `${basePath}/`, label: t("navigation.home"), accent: "events" },
-      {
-        href: `${basePath}/events`,
-        label: t("navigation.events"),
-        accent: "events",
-      },
-      {
-        href: `${basePath}/hotels`,
-        label: "Hotels",
-        accent: "hotels",
-      },
-      {
-        href: `${basePath}/restaurants`,
-        label: "Restaurants",
-        accent: "restaurants",
-      },
-      {
-        href: `${basePath}/tourism`,
-        label: "Tourism",
-        accent: "tourism",
-      },
-      {
-        href: `${basePath}/categories`,
-        label: t("navigation.categories"),
-        accent: "events",
-      },
-      {
-        href: `${basePath}/about`,
-        label: t("navigation.about"),
-        accent: "events",
-      },
-    ],
-    [basePath, t]
-  );
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
 
-  const loginPath = language === "en" ? "/login" : `/${language}/login`;
-  const registerPath =
-    language === "en" ? "/register" : `/${language}/register`;
-  const dashboardPath =
-    language === "en" ? "/dashboard" : `/${language}/dashboard`;
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  const handleLanguageChange = useCallback(
+    (target: SupportedLanguage) => {
+      setLanguage(target as LanguageValue);
+    },
+    [setLanguage]
+  );
 
   return (
     <>
-      {showTopBanner && (
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 text-center text-sm font-medium">
-          🎉 {t("navigation.aiRecommendations")}
-          <Link
-            href={registerPath}
-            className="underline ml-2 font-semibold hover:text-yellow-300"
-          >
-            {t("navigation.tryItFree")} {isRTL ? "←" : "→"}
-          </Link>
-        </div>
-      )}
+      <TopBanner
+        registerPath={registerPath}
+        isRTL={isRTL}
+        translate={t}
+      />
 
       <nav className="neon-nav events-glow sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4">
@@ -155,74 +418,17 @@ const TopNavBar = () => {
               </div>
             </Link>
 
-            <div className="hidden md:flex items-center gap-8">
-              {navigationLinks.slice(0, 5).map(({ href, label, accent }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="font-medium transition-colors relative group"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  {label}
-                  <span
-                    className="absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
-                    style={{
-                      backgroundColor: `var(--${accent}-color)`,
-                      boxShadow: `0 0 5px var(--${accent}-color)`,
-                    }}
-                  />
-                </Link>
-              ))}
-            </div>
+            <DesktopLinks links={navigationLinks} />
 
             <div className={`flex items-center gap-3 ${isRTL ? "flex-row-reverse" : ""}`}>
-              <div className="relative group hidden sm:block" data-testid="language-switcher">
-                <button
-                  className="flex items-center gap-2 px-3 py-2 font-medium transition-colors rounded-full"
-                  style={{ color: "var(--text-primary)" }}
-                  type="button"
-                >
-                  <span className="text-lg">🌐</span>
-                  <span className="text-sm" suppressHydrationWarning>
-                    {languageDisplay}
-                  </span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                <div
-                  className={`absolute ${isRTL ? "left-0" : "right-0"} top-full mt-1 rounded-lg min-w-[160px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50`}
-                  style={{
-                    background: "var(--bg-secondary)",
-                    border: "1px solid var(--events-color)",
-                  }}
-                >
-                  {LANGUAGE_OPTIONS.map((option) => (
-                    <button
-                      key={option}
-                      onClick={() => handleLanguageChange(option)}
-                      className="w-full px-4 py-2 text-left transition-colors rounded-lg hover:bg-white/10"
-                      style={{
-                        color:
-                          language === option
-                            ? "var(--events-color)"
-                            : "var(--text-primary)",
-                      }}
-                      type="button"
-                    >
-                      {LANGUAGE_FLAGS[option]} {LANGUAGE_LABELS[option]}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <LanguageMenu
+                language={currentLanguage}
+                isRTL={isRTL}
+                onLanguageChange={handleLanguageChange}
+              />
 
               <Link
-                href={session ? dashboardPath : registerPath}
+                href={registerPath}
                 className="neon-button tourism tourism-glow"
                 style={{ fontSize: "0.9rem", padding: "8px 16px" }}
               >
@@ -230,51 +436,14 @@ const TopNavBar = () => {
                 {t("navigation.createEvent")}
               </Link>
 
-              {session ? (
-                <div className="flex items-center gap-4">
-                  <div className="hidden lg:flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm font-semibold">
-                        {(
-                          session.user?.name?.charAt(0) ??
-                          session.user?.email?.charAt(0) ??
-                          "U"
-                        ).toUpperCase()}
-                      </span>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-gray-800">
-                        {session.user?.name ?? "User"}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {session.user?.email}
-                      </span>
-                    </div>
-                  </div>
-                  <Link
-                    href={dashboardPath}
-                    className="inline-block px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
-                  >
-                    {t("navigation.dashboard")}
-                  </Link>
-                  <button
-                    onClick={() => signOut()}
-                    className="text-gray-600 hover:text-red-600 font-medium transition-colors hidden md:block"
-                    type="button"
-                  >
-                    {t("navigation.logout")}
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-3">
-                  <Link
-                    href={loginPath}
-                    className="inline-block px-4 py-1.5 rounded-full bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
-                  >
-                    {t("navigation.login")}
-                  </Link>
-                </div>
-              )}
+              <AccountActions
+                session={session ?? null}
+                loginPath={loginPath}
+                registerPath={registerPath}
+                dashboardPath={dashboardPath}
+                onLogout={() => signOut()}
+                translate={t}
+              />
 
               <button
                 onClick={toggleMenu}
@@ -301,66 +470,25 @@ const TopNavBar = () => {
               isMenuOpen ? "block" : "hidden"
             }`}
           >
-            <div className="flex flex-col gap-4">
-              {navigationLinks.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {label}
-                </Link>
-              ))}
+            <MobileLinks
+              links={navigationLinks}
+              loginPath={loginPath}
+              registerPath={registerPath}
+              hasSession={Boolean(session)}
+              translate={t}
+              onClose={closeMenu}
+            />
 
-              {!session && (
-                <div className="flex gap-3 pt-2">
-                  <Link
-                    href={loginPath}
-                    className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full font-semibold flex items-center gap-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <span>🔑</span>
-                    {t("navigation.login")}
-                  </Link>
-                  <Link
-                    href={registerPath}
-                    className="border border-purple-500 text-purple-600 px-4 py-2 rounded-full font-semibold hover:bg-purple-50 transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {t("navigation.tryItFree")}
-                  </Link>
-                </div>
-              )}
-
-              <div className="pt-4 border-t border-gray-100 mt-4">
-                <div className="text-sm text-gray-600 mb-2">
-                  {t("navigation.language")}
-                </div>
-                <div className="flex gap-2">
-                  {LANGUAGE_OPTIONS.map((option) => (
-                    <button
-                      key={option}
-                      onClick={() => handleLanguageChange(option)}
-                      className={`px-3 py-1 text-sm rounded-full font-medium ${
-                        language === option
-                          ? "bg-purple-100 text-purple-600"
-                          : "text-gray-600 hover:bg-gray-100"
-                      }`}
-                      type="button"
-                    >
-                      {LANGUAGE_FLAGS[option]}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <MobileLanguageMenu
+              language={currentLanguage}
+              onLanguageChange={handleLanguageChange}
+              translate={t}
+            />
           </div>
         </div>
       </nav>
     </>
   );
-};
+}
 
 export default TopNavBar;
-
