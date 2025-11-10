@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import MultiVenueHomepage from "./components/MultiVenueHomepage";
-import Navigation from "./components/Navigation";
+import TopNavBar from "./components/TopNavBar";
 
 /**
  * Home Page - Multi-Venue Platform
@@ -15,7 +15,7 @@ import Navigation from "./components/Navigation";
 export default function Home() {
   return (
     <>
-      <Navigation />
+      <TopNavBar />
       <MultiVenueHomepage />
     </>
   );
